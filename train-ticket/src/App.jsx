@@ -1,31 +1,35 @@
-import React, { Component, memo } from 'react';
-import './App.css';
+import React, {Component, useState} from 'react';
 
-const Foo = memo(function Foo(props) {
-    // 监视 Foo 组件渲染情况
-    console.log('Foo render');
-    return <div>{props.person.age}</div>;
-});
-
-class App extends Component {
+class AppClass extends Component {
     state = {
-        count: 0,
-        person: {
-            age: 1,
-        }
+        count: 0
     };
+
     render() {
-        const person = this.state.person;
+        const {count} = this.state;
+
         return (
-            <div>
-                <button onClick={ () => {
-                    person.age++;
-                    this.setState({ person })
-                }}>Add</button>
-                <Foo person={person} />
-            </div>
+            <button type="button"
+                    onClick={() => {
+                        this.setState({count: this.state.count + 1})
+                    }}
+            >Click ({count})
+            </button>
         );
     }
+}
+
+function App() {
+    const [count, setCount] = useState(0);
+    const [name, setName] = useState('Mike');
+    return(
+        <button
+            type="button"
+            onClick={ () => {setCount(count+1)}}
+        >
+            Click ({count}), name ({name})
+        </button>
+    );
 }
 
 export default App;
