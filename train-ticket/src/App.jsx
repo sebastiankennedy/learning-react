@@ -1,31 +1,33 @@
-import React, { Component, lazy, Suspense } from 'react';
+import React, { Component, PureComponent, memo } from 'react';
 import './App.css';
 
-// 需要传入一个没有参数的函数，返回一个 React 组件
-const About = lazy( ()=> import('./about.jsx'));
+// PureComponent 提供了简单的对比算法，来避免组件重新渲染，节省开销
+class Foo extends PureComponent{
+    // shouldComponentUpdate 实现效果与 PureComponent 一致
+    /*shouldComponentUpdate(nextProps, nextState, nextContext) {
+        if (nextProps.name === this.props.name){
+            return false;
+        }
+
+        return true;
+    }*/
+
+    render() {
+        // 监视 Foo 组件渲染情况
+        console.log('Foo render');
+        return null;
+    }
+}
 
 class App extends Component {
     state = {
-        hasError: false
+        count: 0
     };
-
-    // 捕获任何渲染错误
-    componentDidCatch() {
-        this.setState({
-            hasError: true
-        });
-    }
-
     render() {
-        if (this.state.hasError){
-            return <div>error</div>;
-        }
         return (
             <div>
-                {/* fallback 需要传入组件实例 */}
-                <Suspense fallback={<div>Loading</div>}>
-                <About></About>
-                </Suspense>
+                <button onClick={ () => this.setState({ count: this.state.count + 1})}>add</button>
+                <Foo name="Mike"/>
             </div>
         );
     }
