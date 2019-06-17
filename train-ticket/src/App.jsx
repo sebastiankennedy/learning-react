@@ -1,90 +1,60 @@
-import React, {Component, useState, useEffect} from 'react';
+import React, {Component, useState, createContext, useContext} from 'react';
 
-class App2 extends Component {
-    state = {
-        count: 0,
-        size: {
-            width: document.documentElement.clientWidth,
-            height: document.documentElement.clientHeight
-        }
-    };
+const CountContext = createContext();
 
-    onResize = () => {
-        this.setState({
-            size: {
-                width: document.documentElement.clientWidth,
-                height: document.documentElement.clientHeight
-            }
-        })
-    };
-
-    componentDidMount() {
-        document.title = this.state.count;
-
-        window.addEventListener('resize', this.onResize, false);
-    }
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        document.title = this.state.count;
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.onResize, false);
-    }
-
+class Foo extends Component {
     render() {
-        const {count, size} = this.state;
-
         return (
-            <button type="button"
-                    onClick={() => {
-                        this.setState({count: this.state.count + 1})
-                    }}
-            >
-                Click ({count})
-                Size: {size.width}X{size.height}
-            </button>
+            <CountContext.Consumer>
+                {
+                    count => <h1>{count}</h1>
+                }
+            </CountContext.Consumer>
         );
     }
 }
 
-function App() {
+class Bar extends Component {
+    static contextType = CountContext;
+    render() {
+        const count = this.context;
+        return (
+            <CountContext.Consumer>
+                {
+                    count => <h1>{count}</h1>
+                }
+            </CountContext.Consumer>
+        );
+    }
+}
+
+// 可以使用多个 Context
+function Counter(){
+    const count = useContext(CountContext);
+    return (
+        <h1>{count}</h1>
+    );
+}
+
+function App(props) {
     const [count, setCount] = useState(0);
-    const [size, setSize] = useState({
-        width: document.documentElement.clientWidth,
-        height: document.documentElement.clientHeight
-    });
-
-    const onResize = () => {
-        setSize({
-            width: document.documentElement.clientWidth,
-            height: document.documentElement.clientHeight
-        });
-    };
-
-    useEffect(() => {
-        document.title = count;
-    });
-
-    // 传递空数组，可以避免每次渲染后执行。如果数组每一项数值不变，只会渲染一次。
-    useEffect( () => {
-        window.addEventListener('resize', onResize, false);
-
-        return () => {
-            window.removeEventListener('resize', this.onResize, false);
-        }
-    }, []);
 
     return (
-        <button
-            type="button"
-            onClick={() => {
-                setCount(count + 1);
-            }}
-        >
-            Click ({count})
-            Size: {size.width}X{size.height}
-        </button>
+        <div>
+            <button
+                type="button"
+                onClick={() => {
+                    setCount(count + 1)
+                }}
+            >
+                Click ({count})
+            </button>
+            <CountContext.Provider value={count}>
+                <Foo/>
+                <Bar/>
+                <Counter/>
+            </CountContext.Provider>
+        </div>
     );
 }
 
