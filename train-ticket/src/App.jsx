@@ -5,20 +5,12 @@ const BatteryContext = createContext();
 const OnLineContext = createContext();
 
 class Leaf extends Component {
+    static contextType = BatteryContext;
+
     render() {
+        const battery = this.context;
         return (
-            // 不能直接渲染其他组件，必须使用函数，函数的唯一参数就是 Context 的值
-            <BatteryContext.Consumer>
-                {
-                    battery => (
-                        <OnLineContext.Consumer>
-                            {
-                                online => <h1>Battery: {battery}, Online: {String(online)}</h1>
-                            }
-                        </OnLineContext.Consumer>
-                    )
-                }
-            </BatteryContext.Consumer>
+            <h1>Battery: {battery}</h1>
         );
     }
 }
