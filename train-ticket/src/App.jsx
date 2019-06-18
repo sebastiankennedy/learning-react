@@ -4,8 +4,22 @@ import './App.css';
 
 let idSeq = Date.now();
 
+function bindActionCreators(actionCreators, dispatch) {
+    const result = {};
+
+    for (let key in actionCreators) {
+        result[key] = function (...args) {
+            const actionCreator = actionCreators[key];
+            const action = actionCreator(...args);
+            dispatch(action);
+        }
+    }
+
+    return result;
+}
+
 function Control(props) {
-    const {dispatch} = props;
+    const {addTodo} = props;
     const inputRef = useRef();
 
     const onSubmit = (e) => {
@@ -16,11 +30,11 @@ function Control(props) {
             return;
         }
 
-        dispatch(createAdd({
+        addTodo({
             id: ++idSeq,
             text: newText,
             complete: false,
-        }));
+        });
 
         inputRef.current.value = '';
     }
@@ -46,23 +60,24 @@ function TodoItem(props) {
             text,
             complete
         },
-        dispatch
+        removeTodo,
+        toggleTodo
     } = props;
 
     const onChange = () => {
-        dispatch(createToggle(id))
+        toggleTodo(id)
     };
 
     const onRemove = () => {
-        dispatch(createRemove(id))
+        removeTodo(id)
     };
 
     return (
         <li className="todo-item">
             <input
                 type="checkbox"
-                onChange={onChange}
                 checked={complete}
+                onChange={onChange}
             />
             <label className={complete ? 'complete' : ''}>{text}</label>
             <button onClick={onRemove}>&#xd7;</button>
@@ -147,8 +162,22 @@ function TodoList() {
 
     return (
         <div className="todo-list">
-            <Control dispatch={dispatch}/>
-            <Todos dispatch={dispatch} todos={todos}/>
+            <Control
+                {
+                    ...bindActionCreators({
+                        addTodo: createAdd
+                    }, dispatch)
+                }
+            />
+            <Todos
+                {
+                    ...bindActionCreators({
+                        removeTodo: createRemove,
+                        toggleTodo: createToggle,
+                    })
+                }
+                todos={todos}
+            />
         </div>
     );
 }
