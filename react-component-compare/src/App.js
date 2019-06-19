@@ -12,6 +12,14 @@ class Hello extends React.Component {
         document.getElementById('hello').addEventListener('click', this.props.handleClick, false);
     }
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        console.log("Hello - Component Did Update!");
+    }
+
+    componentWillUnmount() {
+        console.log("Hello - Component will Unmount!");
+    }
+
     render() {
         const {world, count} = this.props;
         const {title} = this.state;
@@ -33,9 +41,27 @@ function World(props) {
         document.getElementById('world').addEventListener('click', handleClick, false);
 
         return () => {
-            document.getElementById('world').removeEventListener('click', this.handleClick, false);
+            document.getElementById('world').removeEventListener('click', handleClick, false);
         }
     }, []);
+
+    // useEffect 不传递参数，它会在调用一个新的 effect 之前对前一个 effect 进行清理
+    useEffect(() => {
+        console.log("World - Component Did Update!");
+
+        return () => {
+            console.log("World - Component Will Unmount!");
+        }
+    });
+
+    // useEffect 传递参数，相当于 componentDidUpdate 和 componentWillUnmount 组合
+    useEffect(() => {
+        console.log("Count - Component Did Update!");
+
+        return () => {
+            console.log("Count - Component Will Unmount!");
+        }
+    }, [count]);
 
     return (
         <h1 id="world">{hello} {title} - {count}</h1>
