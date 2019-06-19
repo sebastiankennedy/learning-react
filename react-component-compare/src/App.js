@@ -7,7 +7,8 @@ class Hello extends React.Component {
     };
 
     componentDidMount() {
-        this.setState({title: "Big"})
+        this.setState({title: "Big"});
+        document.getElementById('hello').addEventListener('click', this.props.handleClick, false);
     }
 
     render() {
@@ -15,22 +16,23 @@ class Hello extends React.Component {
         const {title} = this.state;
 
         return (
-            <h1>{title} {world} - {count}</h1>
+            <h1 id="hello">{title} {world} - {count}</h1>
         );
     }
 }
 
 function World(props) {
-    const {hello, count} = props;
+    const {hello, count, handleClick} = props;
     const [title, setTitle] = useState("World");
 
     // useEffect 传递空数组，相当于 componentDidMount()
     useEffect(() => {
         setTitle('React');
+        document.getElementById('world').addEventListener('click', handleClick, false);
     }, []);
 
     return (
-        <h1>{hello} {title} - {count}</h1>
+        <h1 id="world">{hello} {title} - {count}</h1>
     );
 }
 
@@ -42,6 +44,12 @@ class App extends React.Component {
             world: "World",
             count: 10
         }
+
+        this.handleClick = this.handleClick.bind(this);
+    }
+
+    handleClick(){
+        this.setState({count: this.state.count + 1});
     }
 
     render() {
@@ -49,8 +57,8 @@ class App extends React.Component {
 
         return (
             <div>
-                <Hello world={world} count={count}/>
-                <World hello={hello} count={count}/>
+                <Hello world={world} count={count} handleClick={this.handleClick}/>
+                <World hello={hello} count={count} handleClick={this.handleClick}/>
             </div>
         );
     }
