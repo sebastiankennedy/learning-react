@@ -1,6 +1,7 @@
 import React, {useState, useCallback, useRef, useEffect} from 'react';
 import {createSet, createAdd, createRemove, createToggle} from './actions'
 import './App.css';
+import reducer from './reducers'
 
 let idSeq = Date.now();
 
@@ -61,15 +62,15 @@ function TodoItem(props) {
             complete
         },
         removeTodo,
-        toggleTodo
+        toggleTodo,
     } = props;
 
     const onChange = () => {
-        toggleTodo(id)
+        toggleTodo(id);
     };
 
     const onRemove = () => {
-        removeTodo(id)
+        removeTodo(id);
     };
 
     return (
@@ -86,7 +87,7 @@ function TodoItem(props) {
 }
 
 function Todos(props) {
-    const {todos, dispatch} = props;
+    const {todos, removeTodo, toggleTodo, dispatch} = props;
     return (
         <ul>
             {
@@ -94,6 +95,8 @@ function Todos(props) {
                     return <TodoItem
                         key={todo.id}
                         todo={todo}
+                        removeTodo={removeTodo}
+                        toggleTodo={toggleTodo}
                         dispatch={dispatch}
                     />
                 })
@@ -106,50 +109,29 @@ const LS_KEY = '_todos_';
 
 function TodoList() {
     const [todos, setTodos] = useState([]);
-
-    const addTodo = useCallback((todo) => {
-        setTodos(todos => [...todos, todo]);
-    }, []);
-
-    const removeTodo = useCallback((id) => {
-        setTodos(todos => todos.filter(todo => {
-            return todo.id !== id;
-        }));
-    }, []);
-
-    const toggleTodo = useCallback((id) => {
-        setTodos(todos => todos.map(todo => {
-            return todo.id === id
-                ? {...todo, complete: !todo.complete}
-                : todo;
-        }))
-    }, []);
+    const [incrementCount, setIncrementCount] = useState(0);
 
     const dispatch = useCallback((action) => {
-        const {type, payload} = action;
+        const state = {
+            todos,
+            incrementCount
+        };
 
-        switch (type) {
-            case 'set':
-                setTodos(payload);
-                break;
-            case 'add':
-                setTodos(todos => [...todos, payload]);
-                break;
-            case 'remove':
-                setTodos(todos => todos.filter(todo => {
-                    return todo.id !== payload;
-                }));
-                break;
-            case 'toggle':
-                setTodos(todos => todos.map(todo => {
-                    return todo.id === payload
-                        ? {...todo, complete: !todo.complete}
-                        : todo;
-                }));
-                break;
-            default:
+        const setters = {
+            todos: setTodos,
+            incrementCount: setIncrementCount
+        };
+
+        const newState = reducer(state, action);
+        for (let key in newState) {
+            setters[key](newState[key]);
         }
-    }, []);
+
+        /*actions.reduce(function(lastTodos, action){
+            return [...lastTodos, action.payload]
+        }, todos);*/
+
+    }, [todos, incrementCount]);
 
     useEffect(() => {
         const todos = JSON.parse(localStorage.getItem(LS_KEY || setTodos(todos)));
@@ -174,7 +156,7 @@ function TodoList() {
                     ...bindActionCreators({
                         removeTodo: createRemove,
                         toggleTodo: createToggle,
-                    })
+                    }, dispatch)
                 }
                 todos={todos}
             />

@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ea62bd8f-7a87-44e9-a83d-98ecda9f7648" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/reducers.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/actions.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -14,13 +16,16 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FavoritesManager">
+    <favorites_list name="train-ticket" />
+  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/App.jsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="603">
-              <caret line="78" column="34" selection-start-line="78" selection-start-column="34" selection-end-line="78" selection-end-column="34" />
+            <state relative-caret-position="101">
+              <caret line="65" column="14" lean-forward="true" selection-start-line="65" selection-start-column="14" selection-end-line="65" selection-end-column="14" />
               <folding>
                 <element signature="e#0#70#0" expanded="true" />
               </folding>
@@ -29,10 +34,19 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/reducers.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="297">
+              <caret line="11" column="37" lean-forward="true" selection-start-line="11" selection-start-column="37" selection-end-line="11" selection-end-column="37" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/actions.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="616">
-              <caret line="26" column="1" lean-forward="true" selection-start-line="26" selection-start-column="1" selection-end-line="26" selection-end-column="1" />
+            <state relative-caret-position="378">
+              <caret line="14" column="16" selection-start-line="14" selection-start-column="16" selection-end-line="14" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -40,8 +54,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/App.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="184">
-              <caret line="45" column="17" selection-start-line="45" selection-start-column="17" selection-end-line="45" selection-end-column="17" />
+            <state relative-caret-position="670">
+              <caret line="63" column="21" selection-start-line="63" selection-start-column="21" selection-end-line="63" selection-end-column="21" />
             </state>
           </provider>
         </entry>
@@ -58,6 +72,8 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>eslintConfig</find>
+      <find>const disp</find>
+      <find>reducer</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -71,6 +87,7 @@
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/src/App.css" />
         <option value="$PROJECT_DIR$/src/actions.js" />
+        <option value="$PROJECT_DIR$/src/reducers.js" />
         <option value="$PROJECT_DIR$/src/App.jsx" />
       </list>
     </option>
@@ -142,12 +159,13 @@
       <workItem from="1560744008402" duration="7091000" />
       <workItem from="1560761063506" duration="23000" />
       <workItem from="1560761107528" duration="6098000" />
-      <workItem from="1560820056318" duration="7042000" />
+      <workItem from="1560820056318" duration="11626000" />
+      <workItem from="1560905116837" duration="594000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="21626000" />
+    <option name="totallyTimeSpent" value="26804000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="971" width="1080" height="949" extended-state="0" />
@@ -156,7 +174,7 @@
       <window_info content_ui="combo" id="Project" order="0" weight="0.23229462" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
-      <window_info id="Favorites" order="3" side_tool="true" />
+      <window_info id="Favorites" order="3" side_tool="true" weight="0.3295562" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" />
@@ -197,22 +215,29 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/App.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="45" column="17" selection-start-line="45" selection-start-column="17" selection-end-line="45" selection-end-column="17" />
+        <state relative-caret-position="670">
+          <caret line="63" column="21" selection-start-line="63" selection-start-column="21" selection-end-line="63" selection-end-column="21" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/actions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="616">
-          <caret line="26" column="1" lean-forward="true" selection-start-line="26" selection-start-column="1" selection-end-line="26" selection-end-column="1" />
+        <state relative-caret-position="378">
+          <caret line="14" column="16" selection-start-line="14" selection-start-column="16" selection-end-line="14" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/reducers.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="297">
+          <caret line="11" column="37" lean-forward="true" selection-start-line="11" selection-start-column="37" selection-end-line="11" selection-end-column="37" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/App.jsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="603">
-          <caret line="78" column="34" selection-start-line="78" selection-start-column="34" selection-end-line="78" selection-end-column="34" />
+        <state relative-caret-position="101">
+          <caret line="65" column="14" lean-forward="true" selection-start-line="65" selection-start-column="14" selection-end-line="65" selection-end-column="14" />
           <folding>
             <element signature="e#0#70#0" expanded="true" />
           </folding>
