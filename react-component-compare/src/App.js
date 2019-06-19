@@ -7,6 +7,7 @@ class Hello extends React.Component {
     };
 
     componentDidMount() {
+        console.log("Hello - Component Did Mount Done!");
         this.setState({title: "Big"});
         document.getElementById('hello').addEventListener('click', this.props.handleClick, false);
     }
@@ -27,8 +28,13 @@ function World(props) {
 
     // useEffect 传递空数组，相当于 componentDidMount()
     useEffect(() => {
+        console.log("World - Component Did Mount Done!");
         setTitle('React');
         document.getElementById('world').addEventListener('click', handleClick, false);
+
+        return () => {
+            document.getElementById('world').removeEventListener('click', this.handleClick, false);
+        }
     }, []);
 
     return (
@@ -48,7 +54,7 @@ class App extends React.Component {
         this.handleClick = this.handleClick.bind(this);
     }
 
-    handleClick(){
+    handleClick() {
         this.setState({count: this.state.count + 1});
     }
 
