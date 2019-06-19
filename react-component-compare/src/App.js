@@ -54,14 +54,14 @@ function World(props) {
         }
     });
 
-    // useEffect 传递参数，相当于 componentDidUpdate 和 componentWillUnmount 组合
+    // useEffect 传递参数，参数对比变更，相当于 componentDidUpdate 和 componentWillUnmount 组合
     useEffect(() => {
         console.log("Count - Component Did Update!");
 
         return () => {
             console.log("Count - Component Will Unmount!");
         }
-    }, [count]);
+    }, [count === 12]);
 
     return (
         <h1 id="world">{hello} {title} - {count}</h1>
