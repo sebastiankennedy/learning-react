@@ -7,21 +7,21 @@ class Hello extends React.Component {
     };
 
     render() {
-        const {world, count} = this.props;
+        const {world, count, addCount} = this.props;
         const {title} = this.state;
 
         return (
-            <h1 id="hello">{title} {world} - {count}</h1>
+            <h1 id="hello" onClick={addCount}>{title} {world} - {count}</h1>
         );
     }
 }
 
 function World(props) {
-    const {hello, count} = props;
+    const {hello, count, subCount} = props;
     const [title, setTitle] = useState("World");
 
     return (
-        <h1 id="world">{hello} {title} - {count}</h1>
+        <h1 id="world" onClick={subCount}>{hello} {title} - {count}</h1>
     );
 }
 
@@ -52,7 +52,7 @@ class App extends React.Component {
         return (
             <div>
                 <Hello world={world} count={count} addCount={this.addCount}/>
-                <World hello={hello} count={count} addCount={this.addCount}/>
+                <World hello={hello} count={count} subCount={this.subCount}/>
             </div>
         );
     }
