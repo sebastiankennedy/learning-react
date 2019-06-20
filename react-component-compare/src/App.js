@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import {addCount, subCount} from "./actions";
 import './App.css';
 
 class Hello extends React.Component {
@@ -9,7 +10,7 @@ class Hello extends React.Component {
 
     handleClick = () => {
         const {dispatch} = this.props;
-        dispatch({type: 'addCount', payload: 10});
+        dispatch(addCount(10));
     }
 
     componentDidMount() {
@@ -35,7 +36,7 @@ function World(props) {
     const [title, setTitle] = useState("World");
 
     const handleClick = () => {
-        dispatch({type: 'subCount', payload: 5})
+        dispatch(subCount(5))
     }
 
     useEffect(() => {
