@@ -6,20 +6,6 @@ class Hello extends React.Component {
         title: "Hello",
     };
 
-    componentDidMount() {
-        console.log("Hello - Component Did Mount Done!");
-        this.setState({title: "Big"});
-        document.getElementById('hello').addEventListener('click', this.props.handleClick, false);
-    }
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        console.log("Hello - Component Did Update!");
-    }
-
-    componentWillUnmount() {
-        console.log("Hello - Component will Unmount!");
-    }
-
     render() {
         const {world, count} = this.props;
         const {title} = this.state;
@@ -31,37 +17,8 @@ class Hello extends React.Component {
 }
 
 function World(props) {
-    const {hello, count, handleClick} = props;
+    const {hello, count} = props;
     const [title, setTitle] = useState("World");
-
-    // useEffect 传递空数组，相当于 componentDidMount()
-    useEffect(() => {
-        console.log("World - Component Did Mount Done!");
-        setTitle('React');
-        document.getElementById('world').addEventListener('click', handleClick, false);
-
-        return () => {
-            document.getElementById('world').removeEventListener('click', handleClick, false);
-        }
-    }, []);
-
-    // useEffect 不传递参数，它会在调用一个新的 effect 之前对前一个 effect 进行清理
-    useEffect(() => {
-        console.log("World - Component Did Update!");
-
-        return () => {
-            console.log("World - Component Will Unmount!");
-        }
-    });
-
-    // useEffect 传递参数，参数对比变更，相当于 componentDidUpdate 和 componentWillUnmount 组合
-    useEffect(() => {
-        console.log("Count - Component Did Update!");
-
-        return () => {
-            console.log("Count - Component Will Unmount!");
-        }
-    }, [count === 12]);
 
     return (
         <h1 id="world">{hello} {title} - {count}</h1>
@@ -77,11 +34,16 @@ class App extends React.Component {
             count: 10
         }
 
-        this.handleClick = this.handleClick.bind(this);
+        this.addCount = this.addCount.bind(this);
+        this.subCount = this.subCount.bind(this);
     }
 
-    handleClick() {
+    addCount() {
         this.setState({count: this.state.count + 1});
+    }
+
+    subCount() {
+        this.setState({count: this.state.count - 1});
     }
 
     render() {
@@ -89,8 +51,8 @@ class App extends React.Component {
 
         return (
             <div>
-                <Hello world={world} count={count} handleClick={this.handleClick}/>
-                <World hello={hello} count={count} handleClick={this.handleClick}/>
+                <Hello world={world} count={count} addCount={this.addCount}/>
+                <World hello={hello} count={count} addCount={this.addCount}/>
             </div>
         );
     }
