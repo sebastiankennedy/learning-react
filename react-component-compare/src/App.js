@@ -8,8 +8,8 @@ class Hello extends React.Component {
     };
 
     handleClick = () => {
-        const {addCount} = this.props;
-        addCount(this.state.num);
+        const {dispatch} = this.props;
+        dispatch({type: 'addCount', payload: 10});
     }
 
     componentDidMount() {
@@ -31,11 +31,11 @@ class Hello extends React.Component {
 }
 
 function World(props) {
-    const {hello, count, subCount} = props;
+    const {hello, count, dispatch} = props;
     const [title, setTitle] = useState("World");
 
     const handleClick = () => {
-        subCount(5);
+        dispatch({type: 'subCount', payload: 5})
     }
 
     useEffect(() => {
@@ -62,14 +62,29 @@ class App extends React.Component {
 
         this.addCount = this.addCount.bind(this);
         this.subCount = this.subCount.bind(this);
+        this.dispatch = this.dispatch.bind(this);
     }
 
     addCount($num = 1) {
         this.setState({count: this.state.count + $num});
     }
 
-    subCount($num = 2) {
+    subCount($num = 1) {
         this.setState({count: this.state.count - $num});
+    }
+
+    // 创建一个调度器，把需要执行的操作都集中管理，操作带有类型和数据两个参数
+    dispatch(action) {
+        const {type, payload} = action;
+
+        switch (type) {
+            case "addCount":
+                this.addCount(payload);
+                break;
+            case "subCount":
+                this.subCount(payload);
+                break;
+        }
     }
 
     render() {
@@ -77,8 +92,8 @@ class App extends React.Component {
 
         return (
             <div>
-                <Hello world={world} count={count} addCount={this.addCount}/>
-                <World hello={hello} count={count} subCount={this.subCount}/>
+                <Hello world={world} count={count} dispatch={this.dispatch}/>
+                <World hello={hello} count={count} dispatch={this.dispatch}/>
             </div>
         );
     }
