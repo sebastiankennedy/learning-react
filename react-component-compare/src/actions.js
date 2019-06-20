@@ -1,3 +1,4 @@
+// 集中管理 Action
 export function addCount(payload){
     return {
         type: 'addCount',

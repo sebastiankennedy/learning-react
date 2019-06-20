@@ -74,7 +74,7 @@ class App extends React.Component {
         this.setState({count: this.state.count - $num});
     }
 
-    // 创建一个调度器，把需要执行的操作都集中管理，操作带有类型和数据两个参数
+    // 创建一个 dispatch，把需要执行的 action 都集中管理，action 带有类型和数据两个参数
     dispatch(action) {
         const {type, payload} = action;
 
