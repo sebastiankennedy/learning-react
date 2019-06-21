@@ -91,7 +91,7 @@ class App extends React.Component {
         this.setState({count: this.state.count - $num});
     }
 
-    // reducer 封装每个 Action 对应的 State，返回通过 Action 更新之后的 State
+    // reducer 封装每个 Action 对应的业务逻辑，返回通过 Action 更新之后的 State
     reducer(state, action) {
         const {type, payload} = action;
         const {count} = state;
@@ -122,8 +122,9 @@ class App extends React.Component {
             count: this.setCount
         }
 
+        // 根据 Action 类型传入需要全局 State，返回新的 State
         const newState = this.reducer(state, action);
-        console.log(newState);
+
         for (let key in  newState) {
             setters[key](newState[key]);
         }

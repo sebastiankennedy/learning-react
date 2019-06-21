@@ -1,3 +1,4 @@
+// 让每个 State 独立接收 Action，并且计算更新对应的 State
 function reducers(){
 
 }
@@ -16,3 +17,5 @@ function combineReducers(reducers){
         }
     }
 }
+
+export default combineReducers(reducers);
