@@ -112,8 +112,8 @@ class App extends React.Component {
                 <Hello world={world}
                        count={count}
                        dispatch={this.dispatch}
-                       // 根据组件按需加载需要绑定的 Action
                        {
+                           // 根据组件按需加载需要绑定的 Action
                            ...bindActionCreators({
                                addCount: createAddCount
                            }, this.dispatch)
@@ -122,8 +122,8 @@ class App extends React.Component {
                 <World hello={hello}
                        count={count}
                        dispatch={this.dispatch}
-                       // 根据组件按需加载需要绑定的 Action
                        {
+                           // 根据组件按需加载需要绑定的 Action
                            ...bindActionCreators({
                                subCount: createSubCount
                            }, this.dispatch)

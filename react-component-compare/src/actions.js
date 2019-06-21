@@ -1,4 +1,4 @@
-// 集中管理 Action
+// Action 是把所有业务操作集中管理起来
 export function createAddCount(payload){
     return {
         type: 'addCount',
