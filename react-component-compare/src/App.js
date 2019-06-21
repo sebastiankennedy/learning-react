@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {createAddCount, createSubCount} from "./actions";
+import reducer from './reducers'
 import './App.css';
 
 // 封装 Dispatch 和 Action，把一个 Action 封装成一个可调用的匿名函数
@@ -79,7 +80,6 @@ class App extends React.Component {
         this.addCount = this.addCount.bind(this);
         this.subCount = this.subCount.bind(this);
         this.dispatch = this.dispatch.bind(this);
-        this.reducer = this.reducer.bind(this);
         this.setCount = this.setCount.bind(this);
     }
 
@@ -89,27 +89,6 @@ class App extends React.Component {
 
     subCount($num = 1) {
         this.setState({count: this.state.count - $num});
-    }
-
-    // reducer 封装每个 Action 对应的业务逻辑，返回通过 Action 更新之后的 State
-    reducer(state, action) {
-        const {type, payload} = action;
-        const {count} = state;
-
-        switch (type) {
-            case "addCount":
-                return {
-                    ...state,
-                    count: count + payload
-                };
-            case "subCount":
-                return {
-                    ...state,
-                    count: count - payload
-                };
-        }
-
-        return state;
     }
 
     // 创建一个 Dispatch，把需要执行的 Action 都集中管理，一个 Action 关联对应的业务逻辑
@@ -123,8 +102,9 @@ class App extends React.Component {
         }
 
         // 根据 Action 类型传入需要全局 State，返回新的 State
-        const newState = this.reducer(state, action);
+        const newState = reducer(state, action);
 
+        // 根据新的 State 更新旧的 State
         for (let key in  newState) {
             setters[key](newState[key]);
         }
@@ -141,7 +121,6 @@ class App extends React.Component {
             <div>
                 <Hello world={world}
                        count={count}
-                       dispatch={this.dispatch}
                        {
                            // 根据组件按需加载需要绑定的 Action
                            ...bindActionCreators({
@@ -151,7 +130,6 @@ class App extends React.Component {
                 />
                 <World hello={hello}
                        count={count}
-                       dispatch={this.dispatch}
                        {
                            // 根据组件按需加载需要绑定的 Action
                            ...bindActionCreators({
