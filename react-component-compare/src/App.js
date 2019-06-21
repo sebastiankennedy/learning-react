@@ -79,6 +79,8 @@ class App extends React.Component {
         this.addCount = this.addCount.bind(this);
         this.subCount = this.subCount.bind(this);
         this.dispatch = this.dispatch.bind(this);
+        this.reducer = this.reducer.bind(this);
+        this.setCount = this.setCount.bind(this);
     }
 
     addCount($num = 1) {
@@ -89,19 +91,46 @@ class App extends React.Component {
         this.setState({count: this.state.count - $num});
     }
 
-    // 创建一个 Dispatch，把需要执行的 Action 都集中管理，一个 Action 关联对应的业务逻辑
-    dispatch(action) {
+    // reducer 封装每个 Action 对应的 State，返回通过 Action 更新之后的 State
+    reducer(state, action) {
         const {type, payload} = action;
+        const {count} = state;
 
-        // Action 与 业务逻辑进行关联
         switch (type) {
             case "addCount":
-                this.addCount(payload);
-                break;
+                return {
+                    ...state,
+                    count: count + payload
+                };
             case "subCount":
-                this.subCount(payload);
-                break;
+                return {
+                    ...state,
+                    count: count - payload
+                };
         }
+
+        return state;
+    }
+
+    // 创建一个 Dispatch，把需要执行的 Action 都集中管理，一个 Action 关联对应的业务逻辑
+    dispatch(action) {
+        const state = {
+            count: this.state.count
+        }
+
+        const setters = {
+            count: this.setCount
+        }
+
+        const newState = this.reducer(state, action);
+        console.log(newState);
+        for (let key in  newState) {
+            setters[key](newState[key]);
+        }
+    }
+
+    setCount(num) {
+        this.setState({count: num});
     }
 
     render() {
