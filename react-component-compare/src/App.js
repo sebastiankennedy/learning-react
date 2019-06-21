@@ -1,6 +1,20 @@
 import React, {useState, useEffect} from 'react';
-import {addCount, subCount} from "./actions";
+import {createAddCount, createSubCount} from "./actions";
 import './App.css';
+
+// 封装 Dispatch 和 Action，把一个 Action 封装成一个可调用的匿名函数
+function bindActionCreators(actionCreators, dispatch) {
+    const result = {};
+
+    for (let key in actionCreators) {
+        result[key] = function (...args) {
+            const actionCreator = actionCreators[key];
+            const action = actionCreator(...args);
+            dispatch(action);
+        }
+    }
+    return result;
+}
 
 class Hello extends React.Component {
     state = {
@@ -9,8 +23,8 @@ class Hello extends React.Component {
     };
 
     handleClick = () => {
-        const {dispatch} = this.props;
-        dispatch(addCount(10));
+        const {addCount} = this.props;
+        addCount(5);
     }
 
     componentDidMount() {
@@ -32,14 +46,15 @@ class Hello extends React.Component {
 }
 
 function World(props) {
-    const {hello, count, dispatch} = props;
+    const {hello, count, subCount} = props;
     const [title, setTitle] = useState("World");
 
     const handleClick = () => {
-        dispatch(subCount(5))
+        subCount(5);
     }
 
     useEffect(() => {
+        setTitle("Sebastian");
         document.getElementById('world').addEventListener('click', handleClick, false);
         return () => {
             document.getElementById('world').removeEventListener('click', handleClick, false);
@@ -74,10 +89,11 @@ class App extends React.Component {
         this.setState({count: this.state.count - $num});
     }
 
-    // 创建一个 dispatch，把需要执行的 action 都集中管理，action 带有类型和数据两个参数
+    // 创建一个 Dispatch，把需要执行的 Action 都集中管理，一个 Action 关联对应的业务逻辑
     dispatch(action) {
         const {type, payload} = action;
 
+        // Action 与 业务逻辑进行关联
         switch (type) {
             case "addCount":
                 this.addCount(payload);
@@ -93,8 +109,26 @@ class App extends React.Component {
 
         return (
             <div>
-                <Hello world={world} count={count} dispatch={this.dispatch}/>
-                <World hello={hello} count={count} dispatch={this.dispatch}/>
+                <Hello world={world}
+                       count={count}
+                       dispatch={this.dispatch}
+                       // 根据组件按需加载需要绑定的 Action
+                       {
+                           ...bindActionCreators({
+                               addCount: createAddCount
+                           }, this.dispatch)
+                       }
+                />
+                <World hello={hello}
+                       count={count}
+                       dispatch={this.dispatch}
+                       // 根据组件按需加载需要绑定的 Action
+                       {
+                           ...bindActionCreators({
+                               subCount: createSubCount
+                           }, this.dispatch)
+                       }
+                />
             </div>
         );
     }

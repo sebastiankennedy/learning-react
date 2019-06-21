@@ -1,12 +1,12 @@
 // 集中管理 Action
-export function addCount(payload){
+export function createAddCount(payload){
     return {
         type: 'addCount',
         payload,
     }
 }
 
-export function subCount(payload){
+export function createSubCount(payload){
     return {
         type: 'subCount',
         payload
