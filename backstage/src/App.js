@@ -1,26 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {Component} from 'react';
+import {Row, Col} from 'antd';
+import './App.less';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import Header from './components/Header';
+import Footer from './components/Footer';
+import LeftSidebar from './components/LeftSidebar';
+
+class App extends Component {
+    render() {
+        return (
+            <Row className="container">
+                <Col span={4} className="left-sidebar-container">
+                    <LeftSidebar/>
+                </Col>
+                <Col span={20} className="main">
+                    <Header/>
+                    <Row className="content">
+                        Content
+                    </Row>
+                    <Footer/>
+                </Col>
+            </Row>
+        );
+    }
 }
 
 export default App;
