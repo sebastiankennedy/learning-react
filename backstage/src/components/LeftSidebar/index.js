@@ -8,8 +8,8 @@ const {SubMenu} = Menu;
 
 class LeftSidebar extends Component {
     state = {
-        collapsed: false,
-        menuNodes: null
+        menuNodes: null,
+        collapsed: false
     };
 
     generateMenuNodes = (data) => {
