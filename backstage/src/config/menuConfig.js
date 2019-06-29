@@ -1,16 +1,16 @@
 export default [
     {
-        key: '/option',
+        key: '/admin',
         icon: 'pie-chart',
-        title: 'Chart'
+        title: 'Admin'
     },
     {
-        key: '/desktop',
+        key: '/login',
         icon: 'desktop',
-        title: 'Desktop'
+        title: 'Login'
     },
     {
-        key: '/inbox',
+        key: '/admin/dashboard',
         icon: 'inbox',
         title: 'Inbox'
     },
@@ -54,5 +54,10 @@ export default [
                 ]
             }
         ]
+    },
+    {
+        key: '/admin/ui/loading',
+        icon: 'loading',
+        title: 'Loading',
     }
 ];

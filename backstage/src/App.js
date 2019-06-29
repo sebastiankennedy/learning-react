@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Row, Col} from 'antd';
 import './App.less';
 
+
 import Header from './components/Header';
 import Footer from './components/Footer';
 import LeftSidebar from './components/LeftSidebar';
@@ -16,7 +17,7 @@ class App extends Component {
                 <Col span={20} className="main">
                     <Header/>
                     <Row className="content">
-                        Content
+                        {this.props.children}
                     </Row>
                     <Footer/>
                 </Col>

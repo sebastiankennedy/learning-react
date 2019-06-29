@@ -37,7 +37,6 @@ class Header extends Component {
         return (
             <div className="header-wrapper">
                 <div className="header">
-
                     <span className="header-action">
                         <Icon type="question-circle"/>
                     </span>

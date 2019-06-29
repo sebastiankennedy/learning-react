@@ -88,9 +88,9 @@ module.exports = function(proxy, allowedHost) {
         require(paths.proxySetup)(app);
       }
 
-      // This lets us fetch source contents from webpack for the error overlay
+      // This lets us fetch source contents from webpack for the noMatch overlay
       app.use(evalSourceMapMiddleware(server));
-      // This lets us open files from the runtime error overlay.
+      // This lets us open files from the runtime noMatch overlay.
       app.use(errorOverlayMiddleware());
 
       // This service worker file is effectively a 'no-op' that will reset any

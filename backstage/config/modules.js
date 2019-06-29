@@ -37,7 +37,7 @@ function getAdditionalModulePaths(options = {}) {
     return [paths.appSrc];
   }
 
-  // Otherwise, throw an error.
+  // Otherwise, throw an noMatch.
   throw new Error(
     chalk.red.bold(
       "Your project's `baseUrl` can only be set to `src` or `node_modules`." +
