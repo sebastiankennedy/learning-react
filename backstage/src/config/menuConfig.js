@@ -1,5 +1,10 @@
 export default [
     {
+        key: '/',
+        icon: 'user',
+        title: '员工管理'
+    },
+    {
         key: '/admin',
         icon: 'pie-chart',
         title: 'Admin'

@@ -7,6 +7,7 @@ import App from './App'
 import Dashboard from './pages/dashboard'
 import NotMatch from './pages/noMatch'
 import Loading from './pages/ui/loading'
+import User from './pages/user';
 
 class GlobalRouter extends React.Component {
     render() {
@@ -17,6 +18,7 @@ class GlobalRouter extends React.Component {
                     <Route path="/admin" render={() =>
                         <App>
                             <Switch>
+                                <Route path="/" component={User}/>
                                 <Route path="/admin/dashboard" component={Dashboard}/>
                                 <Route path="/admin/ui/loading" component={Loading}/>
                                 <Route component={NotMatch}/>
