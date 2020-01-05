@@ -1,8 +1,3 @@
 *node_modules
-\.DS_Store
-
-train-ticket/\.idea/inspectionProfiles/Project_Default\.xml
-
-train-ticket/\.idea/misc\.xml
-
-train-ticket/\.idea/
+.DS_Store
+.idea
